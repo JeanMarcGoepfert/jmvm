@@ -1,22 +1,22 @@
 #!/bin/bash
 
-home=/home/vagrant
+USER_HOME=$(getent passwd $SUDO_USER | cut -d: -f6)
 
 export DEBIAN_FRONTEND=noninteractive
 
 echo "Provisioning virtual machine..."
 
 echo "Updating apt-get..."
-sudo apt-get update -y
+#sudo apt-get update -y
 
-if [ ! -d "$home/bin" ]; then
-  echo "Making bin dir in $home..."
-  mkdir -p "$home/bin"
-  chmod a+x $home/bin
+if [ ! -d "$USER_HOME/bin" ]; then
+  echo "Making bin dir in $USER_HOME..."
+  mkdir -p "$USER_HOME/bin"
+  chmod a+x $USER_HOME/bin
   echo '
     if [ -d "$HOME/bin" ];
       then PATH="$PATH:$HOME/bin"
-    fi' >> $home/.bashrc
+    fi' >> $USER_HOME/.bashrc
 fi
 
 echo "Installing ack..."
@@ -59,8 +59,8 @@ if [ ! -d "/usr/lib/jvm/" ]; then
   rm -f equip_java7_64.sh
 fi
 
-if [ ! -f "$home/bin/lein" ]; then
+if [ ! -f "$USER_HOME/bin/lein" ]; then
   echo "Installing leiningen..."
-  wget https://raw.github.com/technomancy/leiningen/stable/bin/lein -O $home/bin/lein --progress=bar:force
-  chmod a+x $home/bin/lein
+  wget https://raw.github.com/technomancy/leiningen/stable/bin/lein -O $USER_HOME/bin/lein --progress=bar:force
+  chmod a+x $USER_HOME/bin/lein
 fi
