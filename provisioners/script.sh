@@ -37,8 +37,6 @@ sudo apt-get install vim -y
 echo "Installing postgres..."
 sudo apt-get install postgresql postgresql-contrib -y
 
-### IDEALLY ONLY DO THIS IF NEEDED
-
 check_db_exists () {
   sudo -u postgres psql -lqt | cut -d \| -f 1 | grep -qw $1
 }
