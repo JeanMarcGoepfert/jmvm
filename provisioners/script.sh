@@ -34,6 +34,36 @@ sudo apt-get install git -y
 echo "Installing vim..."
 sudo apt-get install vim -y
 
+echo "Installing postgres..."
+sudo apt-get install postgresql postgresql-contrib -y
+
+### IDEALLY ONLY DO THIS IF NEEDED
+
+check_db_exists () {
+  sudo -u postgres psql -lqt | cut -d \| -f 1 | grep -qw $1
+}
+
+check_db_user_exists () {
+  sudo -u postgres psql -lqt | cut -d \| -f 1 | grep -qw $1
+}
+
+if ! check_db_exists develop ; then
+  echo "Creating dev db user..."
+  sudo -u postgres bash -c "psql -c \"CREATE USER dev_user WITH PASSWORD 'dev_password';\""
+  echo "Creating dev db..."
+  su postgres -c "createdb develop --owner dev_user"
+fi
+
+if ! check_db_exists develop ; then
+  echo "Creating test db user..."
+  sudo -u postgres bash -c "psql -c \"CREATE USER test_user WITH PASSWORD 'test_password';\""
+  echo "Creating test db..."
+  su postgres -c "createdb test --owner test_user"
+
+  echo "Restarting postgres..."
+  sudo service postgresql restart
+fi
+
 if [ ! -d "/usr/lib/jvm/" ]; then
   echo "Installing java..."
 
