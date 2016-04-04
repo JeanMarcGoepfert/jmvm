@@ -63,5 +63,4 @@ if [ ! -f "$USER_HOME/bin/lein" ]; then
   echo "Installing leiningen..."
   wget https://raw.github.com/technomancy/leiningen/stable/bin/lein -O $USER_HOME/bin/lein --progress=bar:force
   chmod a+x $USER_HOME/bin/lein
-  $USER_HOME/bin/lein repl
 fi
