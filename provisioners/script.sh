@@ -7,7 +7,7 @@ export DEBIAN_FRONTEND=noninteractive
 echo "Provisioning virtual machine..."
 
 echo "Updating apt-get..."
-#sudo apt-get update -y
+sudo apt-get update -y
 
 if [ ! -d "$USER_HOME/bin" ]; then
   echo "Making bin dir in $USER_HOME..."
