@@ -52,7 +52,7 @@ if ! check_db_exists develop ; then
   su postgres -c "createdb develop --owner dev_user"
 fi
 
-if ! check_db_exists develop ; then
+if ! check_db_exists test ; then
   echo "Creating test db user..."
   sudo -u postgres bash -c "psql -c \"CREATE USER test_user WITH PASSWORD 'test_password';\""
   echo "Creating test db..."
