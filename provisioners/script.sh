@@ -94,3 +94,5 @@ if [ ! -f "$USER_HOME/bin/lein" ]; then
   wget https://raw.github.com/technomancy/leiningen/stable/bin/lein -O $USER_HOME/bin/lein --progress=bar:force
   chmod a+x $USER_HOME/bin/lein
 fi
+
+echo "All done, have fun!"
