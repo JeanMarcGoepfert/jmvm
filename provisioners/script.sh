@@ -25,8 +25,8 @@ fi
 
 source $USER_HOME/.bashrc
 
-echo "Installing ack..."
-sudo apt-get install ack -y
+echo "Installing ag..."
+sudo apt-get install silversearcher-ag -y
 
 echo "Installing curl..."
 sudo apt-get install curl -y
