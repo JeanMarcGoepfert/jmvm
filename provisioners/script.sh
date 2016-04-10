@@ -4,6 +4,7 @@ USER_HOME=$(getent passwd $SUDO_USER | cut -d: -f6)
 
 export DEBIAN_FRONTEND=noninteractive
 export LC_ALL=en_US.UTF-8
+export LC_CTYPE=en_US.UTF-8
 export LANG=en_US.UTF-8
 export LANGUAGE=en_US.UTF-8
 
