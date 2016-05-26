@@ -10,6 +10,9 @@ export LANGUAGE=en_US.UTF-8
 
 echo "Provisioning virtual machine..."
 
+echo "Adding java ppa"
+sudo add-apt-repository ppa:webupd8team/java
+
 echo "Updating apt-get..."
 sudo apt-get update -y
 
@@ -40,6 +43,13 @@ sudo apt-get install git -y
 echo "Installing vim..."
 sudo apt-get install vim -y
 
+
+echo "installing java..."
+# auto accept oracle license
+echo debconf shared/accepted-oracle-license-v1-1 select true | sudo debconf-set-selections
+echo debconf shared/accepted-oracle-license-v1-1 seen true | sudo debconf-set-selections
+sudo apt-get install oracle-java8-installer -y
+
 echo "Installing postgres..."
 sudo apt-get install postgresql postgresql-contrib -y
 
@@ -65,31 +75,6 @@ if ! check_db_exists test ; then
   \""
   echo "Restarting postgres..."
   sudo service postgresql restart
-fi
-
-if [ ! -d "/usr/lib/jvm/" ]; then
-  echo "Installing java..."
-
-  curl -L --cookie "oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/7u65-b17/jdk-7u65-linux-x64.tar.gz -o jdk-7-linux-x64.tar.gz
-
-  tar -xvf jdk-7-linux-x64.tar.gz
-
-  sudo mkdir -p /usr/lib/jvm
-
-  sudo mv ./jdk1.7.* /usr/lib/jvm/
-
-  sudo update-alternatives --install "/usr/bin/java" "java" "/usr/lib/jvm/jdk1.7.0_65/bin/java" 1
-  sudo update-alternatives --install "/usr/bin/javac" "javac" "/usr/lib/jvm/jdk1.7.0_65/bin/javac" 1
-  sudo update-alternatives --install "/usr/bin/javaws" "javaws" "/usr/lib/jvm/jdk1.7.0_65/bin/javaws" 1
-
-  sudo chmod a+x /usr/bin/java
-  sudo chmod a+x /usr/bin/javac
-  sudo chmod a+x /usr/bin/javaws
-  sudo chown -R root:root /usr/lib/jvm/jdk1.7.0_65
-
-  rm jdk-7-linux-x64.tar.gz
-  rm -f equip_base.sh
-  rm -f equip_java7_64.sh
 fi
 
 if [ ! -f "$USER_HOME/bin/lein" ]; then
