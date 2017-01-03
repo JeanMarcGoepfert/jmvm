@@ -50,6 +50,9 @@ echo debconf shared/accepted-oracle-license-v1-1 select true | sudo debconf-set-
 echo debconf shared/accepted-oracle-license-v1-1 seen true | sudo debconf-set-selections
 sudo apt-get install oracle-java8-installer -y
 
+echo "Installing nginx..."
+sudo apt-get install nginx -y
+
 echo "Installing postgres..."
 sudo apt-get install postgresql postgresql-contrib -y
 
